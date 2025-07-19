@@ -135,17 +135,17 @@ def get_gemini_api_key():
         return None
 
 def call_gemini_api(prompt, api_key):
-    """Call Gemini 2.5 via OpenRouter API with the given prompt"""
+    """Call Gemini via Together.ai API with the given prompt"""
     if not api_key:
         return None
 
-    url = "https://openrouter.ai/api/v1/chat/completions"
+    url = "https://api.together.xyz/v1/chat/completions"
     headers = {
         "Content-Type": "application/json",
         "Authorization": f"Bearer {api_key}"
     }
     data = {
-        "model": "google/gemini-2.5-pro",
+        "model": "gemini-1.5-pro",  # Change to 'gemini-2.5' if Together.ai supports it
         "messages": [
             {"role": "user", "content": prompt}
         ]
@@ -160,7 +160,7 @@ def call_gemini_api(prompt, api_key):
         )
         if response.status_code == 200:
             result = response.json()
-            # OpenRouter returns choices[0].message.content
+            # Together.ai returns choices[0].message.content
             if "choices" in result and len(result["choices"]) > 0:
                 return result["choices"][0]["message"]["content"]
             else:
