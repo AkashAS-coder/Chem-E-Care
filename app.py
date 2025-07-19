@@ -135,7 +135,7 @@ def get_gemini_api_key():
         return None
 
 def call_gemini_api(prompt, api_key):
-    """Call Kimi K2 Instruct via Together.ai API with the given prompt"""
+    """Call moonshotai/Kimi-K2-Instruct via Together.ai API with the given prompt"""
     if not api_key:
         return None
 
@@ -145,7 +145,7 @@ def call_gemini_api(prompt, api_key):
         "Authorization": f"Bearer {api_key}"
     }
     data = {
-        "model": "kimi-k2-instruct",
+        "model": "moonshotai/Kimi-K2-Instruct",
         "messages": [
             {"role": "user", "content": prompt}
         ]
