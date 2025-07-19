@@ -135,45 +135,38 @@ def get_gemini_api_key():
         return None
 
 def call_gemini_api(prompt, api_key):
-    """Call Gemini API with the given prompt"""
+    """Call Gemini 2.5 via OpenRouter API with the given prompt"""
     if not api_key:
         return None
-    
-    url = "https://generativelanguage.googleapis.com/v1/models/gemini-1.5-pro:generateContent"
-    
+
+    url = "https://openrouter.ai/api/v1/chat/completions"
     headers = {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        "Authorization": f"Bearer {api_key}"
     }
-    
     data = {
-        "contents": [
-            {
-                "parts": [
-                    {
-                        "text": prompt
-                    }
-                ]
-            }
+        "model": "google/gemini-2.5-pro",
+        "messages": [
+            {"role": "user", "content": prompt}
         ]
     }
-    
+
     try:
         response = requests.post(
-            f"{url}?key={api_key}",
+            url,
             headers=headers,
             json=data,
             timeout=30
         )
-        
         if response.status_code == 200:
             result = response.json()
-            if 'candidates' in result and len(result['candidates']) > 0:
-                return result['candidates'][0]['content']['parts'][0]['text']
+            # OpenRouter returns choices[0].message.content
+            if "choices" in result and len(result["choices"]) > 0:
+                return result["choices"][0]["message"]["content"]
             else:
                 return "No response generated"
         else:
             return f"API Error: {response.status_code} - {response.text}"
-    
     except Exception as e:
         return f"Request Error: {str(e)}"
 
