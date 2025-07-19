@@ -135,7 +135,7 @@ def get_gemini_api_key():
         return None
 
 def call_gemini_api(prompt, api_key):
-    """Call Gemini via Together.ai API with the given prompt"""
+    """Call Kimi K2 Instruct via Together.ai API with the given prompt"""
     if not api_key:
         return None
 
@@ -145,7 +145,7 @@ def call_gemini_api(prompt, api_key):
         "Authorization": f"Bearer {api_key}"
     }
     data = {
-        "model": "gemini-1.5-pro",  # Change to 'gemini-2.5' if Together.ai supports it
+        "model": "kimi-k2-instruct",
         "messages": [
             {"role": "user", "content": prompt}
         ]
@@ -160,7 +160,6 @@ def call_gemini_api(prompt, api_key):
         )
         if response.status_code == 200:
             result = response.json()
-            # Together.ai returns choices[0].message.content
             if "choices" in result and len(result["choices"]) > 0:
                 return result["choices"][0]["message"]["content"]
             else:
