@@ -139,7 +139,7 @@ def call_gemini_api(prompt, api_key):
     if not api_key:
         return None
     
-    url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent"
+    url = "https://generativelanguage.googleapis.com/v1/models/gemini-1.5-pro:generateContent"
     
     headers = {
         "Content-Type": "application/json"
