@@ -156,7 +156,7 @@ def call_gemini_api(prompt, api_key):
             url,
             headers=headers,
             json=data,
-            timeout=30
+            timeout=90  # increased timeout
         )
         if response.status_code == 200:
             result = response.json()
