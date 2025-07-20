@@ -351,7 +351,6 @@ def process_orchestrator_decision(event, answers):
 
 # Setup Gemini API
 api_key = get_gemini_api_key()
-st.write("API Key loaded:", bool(api_key), api_key[:6] if api_key else None)
 
 # Sidebar navigation
 st.sidebar.title("Chem-E-Care")
