@@ -135,17 +135,17 @@ def get_gemini_api_key():
         return None
 
 def call_gemini_api(prompt, api_key):
-    """Call moonshotai/Kimi-K2-Instruct via Together.ai API with the given prompt"""
+    """Call Gemini 2.5 experimental via OpenRouter API with the given prompt"""
     if not api_key:
         return None
 
-    url = "https://api.together.xyz/v1/chat/completions"
+    url = "https://openrouter.ai/api/v1/chat/completions"
     headers = {
         "Content-Type": "application/json",
         "Authorization": f"Bearer {api_key}"
     }
     data = {
-        "model": "moonshotai/Kimi-K2-Instruct",
+        "model": "google/gemini-2.5-experimental",
         "messages": [
             {"role": "user", "content": prompt}
         ]
@@ -156,7 +156,7 @@ def call_gemini_api(prompt, api_key):
             url,
             headers=headers,
             json=data,
-            timeout=90  # increased timeout
+            timeout=90
         )
         if response.status_code == 200:
             result = response.json()
